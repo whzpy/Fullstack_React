@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import Table from 'react-bootstrap/Table';
-import { Button } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import DetailsComp from './DetailsComp'
@@ -9,6 +8,7 @@ import EditSaveComp from './EditSaveComp'
 function App() {
   const itemsPerPage = 10; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // for sorting
 
   const [rows, setRows] = useState([])
   const [details, setDetails] = useState(null)
@@ -53,6 +53,23 @@ function App() {
       );
     }
     return pages;
+  };
+
+  // Function to handle sorting
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+
+    const sortedData = [...rows].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    setRows(sortedData);
   };
 
 
@@ -103,14 +120,46 @@ if(details){
     <Table className="table table-striped">
       <thead>
         <tr>
-          <th>id</th>
-          <th>name</th>
-          <th>prepTimeMinutes</th>
-          <th>cookTimeMinutes</th>
-          <th>servings</th>
-          <th>difficulty</th>
-          <th>cuisine</th>
-          <th>rating</th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('id')}>
+              ID {sortConfig.key === 'id' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('name')}>
+              Name {sortConfig.key === 'name' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('prepTimeMinutes')}>
+              prepTimeMinutes {sortConfig.key === 'prepTimeMinutes' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('cookTimeMinutes')}>
+              cookTimeMinutes {sortConfig.key === 'cookTimeMinutes' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('servings')}>
+              Servings {sortConfig.key === 'servings' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('difficulty')}>
+              Difficulty {sortConfig.key === 'difficulty' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('cuisine')}>
+              Cuisine {sortConfig.key === 'cuisine' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
+          <th>
+            <Button variant="link" onClick={() => handleSort('rating')}>
+              Rating {sortConfig.key === 'rating' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
+            </Button>
+          </th>
           <th> Details</th>
           <th> Edit</th>
           
@@ -128,7 +177,7 @@ if(details){
             <td>{ele.cuisine}</td>
             <td>{ele.rating}</td>
             <td><Button type='button'  className="btn btn-success" onClick={() => detailHandler(ele.id)}>Details</Button></td>
-            <td><Button type='button' className="btn btn-primary"  onClick={() => editHandler(ele.id) }>Edit & Save</Button></td>
+            <td><Button type='button' className="btn btn-primary"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
           </tr>)
         }
       </tbody>
