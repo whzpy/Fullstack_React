@@ -7,6 +7,8 @@ import DetailsComp from './DetailsComp'
 import EditSaveComp from './EditSaveComp'
 
 function App() {
+  const itemsPerPage = 10; // Number of items per page
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [rows, setRows] = useState([])
   const [details, setDetails] = useState(null)
@@ -24,6 +26,35 @@ function App() {
       setRows(JSON.parse(localStatus));
     }
   }, [])
+
+  // Calculate total pages
+  const totalPages = Math.ceil(rows.length / itemsPerPage);
+
+  // Get current page items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = rows.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Render pagination
+  const renderPagination = () => {
+    let pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(
+        <li key={i} className={`page-item ${currentPage === i ? "active" : ""}`}>
+          <button className="page-link" onClick={() => handlePageChange(i)}>
+            {i}
+          </button>
+        </li>
+      );
+    }
+    return pages;
+  };
+
 
 const detailHandler = (id) =>{
   let detailsItem = rows.filter(item => item.id === id)
@@ -86,7 +117,7 @@ if(details){
         </tr>
       </thead>
       <tbody>
-        {rows.map(ele =>
+        {currentItems.map(ele =>
           <tr key = {ele.id} >
             <td>{ele.id}</td>
             <td>{ele.name}</td>
@@ -102,6 +133,11 @@ if(details){
         }
       </tbody>
       </Table>
+           <nav>
+        <ul className="pagination justify-content-center">
+          {renderPagination()}
+        </ul>
+      </nav>
     </div>
   )
 }
