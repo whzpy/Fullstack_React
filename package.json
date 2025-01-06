@@ -1,8 +1,7 @@
 {
-  "homepage": "https://whzpy.github.io/eTech-test",
   "name": "etech",
-  "private": true,
   "version": "0.0.0",
+  "homepage": "https://whzpy.github.io/eTech-test",
   "type": "module",
   "scripts": {
     "dev": "vite",
