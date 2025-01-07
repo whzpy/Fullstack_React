@@ -85,9 +85,21 @@ const detailHandler = (id) =>{
   setDetails(extraDetail)
 }
 
+const addHandler = () => {
+  // let editItem = rows.filter(item => item.id === id)
+  // setEditsave(editItem[0])
+  console.log("Add item: ")
+}
+   
 const editHandler = (id) => {
   let editItem = rows.filter(item => item.id === id)
   setEditsave(editItem[0])
+}
+
+const deleteHandler = (id) => {
+  // let editItem = rows.filter(item => item.id === id)
+  // setEditsave(editItem[0])
+  console.log("delete _id: ", id)
 }
     
 const saveHandler = (updatedData) => {
@@ -117,6 +129,8 @@ if(details){
 } else {
   return (
     <div>
+      <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} &nbsp; &nbsp; &nbsp; <Button type='button'  className="btn btn-success" onClick={() => addHandler()}>Add New Recipe</Button></h2>
+      
     <Table className="table table-striped">
       <thead>
         <tr>
@@ -162,6 +176,7 @@ if(details){
           </th>
           <th> Details</th>
           <th> Edit</th>
+          <th> Delete</th>
           
         </tr>
       </thead>
@@ -176,8 +191,9 @@ if(details){
             <td>{ele.difficulty}</td>
             <td>{ele.cuisine}</td>
             <td>{ele.rating}</td>
-            <td><Button type='button'  className="btn btn-success" onClick={() => detailHandler(ele.id)}>Details</Button></td>
-            <td><Button type='button' className="btn btn-primary"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
+            <td><Button type='button'  className="btn btn-light" onClick={() => detailHandler(ele.id)}>Details</Button></td>
+            <td><Button type='button' className="btn btn-info"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
+            <td><Button type='button' className="btn btn-warning"  onClick={() => deleteHandler(ele.id) }>Delete</Button></td>
           </tr>)
         }
       </tbody>
