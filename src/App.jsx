@@ -193,7 +193,7 @@ if(details){
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              TODOs
+              todos
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
