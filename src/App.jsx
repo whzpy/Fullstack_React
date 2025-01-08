@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Table, Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css'; // Import css
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import DetailsComp from './DetailsComp'
@@ -171,7 +173,7 @@ if(details){
   />)
 } else {
   return (
-    <div>
+    <div >
       <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
 
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -206,7 +208,7 @@ if(details){
           </Modal>
         </div>
       </div>
-      <Table className="table table-striped">
+      <Table className="table table-striped" style={{ width: '100%' }}>
       <thead>
         <tr>
           <th>
@@ -219,7 +221,7 @@ if(details){
               Name {sortConfig.key === 'name' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
             </Button>
           </th>
-          <th>
+          <th >
             <Button variant="link" onClick={() => handleSort('prepTimeMinutes')}>
               prepTimeMinutes {sortConfig.key === 'prepTimeMinutes' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
             </Button>
@@ -266,7 +268,9 @@ if(details){
             <td>{ele.difficulty}</td>
             <td>{ele.cuisine}</td>
             <td>{ele.rating}</td>
-            <td><Button type='button'  className="btn btn-light" onClick={() => detailHandler(ele.id)}>Details</Button></td>
+            <td><Button type='button' id="morebtn" data-tooltip-id="moreTooltip" variant="outline-secondary" onClick={() => detailHandler(ele.id)}>More...</Button>
+                <Tooltip id="moreTooltip" content = "extra information" place="bottom" effect="solid" />
+            </td>
             <td><Button type='button' className="btn btn-info"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
             <td><Button type='button' className="btn btn-warning"  onClick={() => deleteHandler(ele.id) }>Delete</Button></td>
           </tr>)
