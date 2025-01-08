@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Table, Button } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import DetailsComp from './DetailsComp'
@@ -34,6 +35,11 @@ function App() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = rows.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Modal
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // Handle page change
   const handlePageChange = (pageNumber) => {
@@ -96,12 +102,36 @@ const searchHandler = (e) => {
   setRows(filtered);
 };
 
+
 const addHandler = () => {
-  // let editItem = rows.filter(item => item.id === id)
-  // setEditsave(editItem[0])
-  console.log("Add item: ")
-}
-   
+   console.log("Add a new recipe ")
+   handleShow()
+
+  // const newRecipe = {
+  //   id: rows.length + 1,
+  //   name: 'New Recipe',
+  //   ingredients: [],
+  //   instructions: [],
+  //   prepTimeMinutes,
+  //   cookTimeMinutes,
+  //   servings,
+  //   difficulty,
+  //   cuisine,
+  //   caloriesPerServing,
+  //   tags: [],
+  //   userId,
+  //   rating,
+  //   image,
+  //   mealType: '',
+  //   reviewCount: 0
+  // };
+  // const newRows = [...rows, newRecipe];
+  // setRows(newRows);
+  // localStorage.setItem('recipeData', JSON.stringify(newRows));
+  // window.location.reload();
+
+};
+
 const editHandler = (id) => {
   let editItem = rows.filter(item => item.id === id)
   setEditsave(editItem[0])
@@ -143,13 +173,40 @@ if(details){
   return (
     <div>
       <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
+
       <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div className="search-container" style={{  marginTop: '10px', marginLeft: '648px', marginRight: '15px',display: 'flex', alignItems: 'center' }}>
-        <input type="text" placeholder="Search for recipes by name ..." className="form-control" style={{ width: '400px' }}  onChange={(e) => searchHandler(e)} />
-      </div> 
-      <Button type='button' className="btn btn-success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>Add New Recipe</Button>
-    </div>
-    <Table className="table table-striped">
+        <div className="search-container" style={{  marginTop: '10px', marginLeft: '648px', marginRight: '15px',display: 'flex', alignItems: 'center' }}>
+          <input 
+          type="text" 
+          placeholder="Search for recipes by name ..." 
+          className="form-control" style={{ width: '400px' }}  
+          onChange={(e) => searchHandler(e)} 
+          />
+        </div>  
+        <div>
+          <Button variant="success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>
+            Add New Recipe
+          </Button>
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              TODOs
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </div>
+      <Table className="table table-striped">
       <thead>
         <tr>
           <th>
@@ -216,7 +273,7 @@ if(details){
         }
       </tbody>
       </Table>
-           <nav>
+      <nav>
         <ul className="pagination justify-content-center">
           {renderPagination()}
         </ul>

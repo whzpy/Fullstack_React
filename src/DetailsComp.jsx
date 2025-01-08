@@ -17,7 +17,7 @@ const DetailsComp = (props) => {
     return (
       <div className="left-aligned">
         <div>
-         <h2 className="heading">Extra information about the selected row</h2>
+         <h2 className="heading">Extra information about the selected recipe</h2>
          <p>This section will display more details about the selected row in the table.</p>
         </div>
         <div className="detail-item">
