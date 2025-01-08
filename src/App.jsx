@@ -85,6 +85,17 @@ const detailHandler = (id) =>{
   setDetails(extraDetail)
 }
 
+const searchHandler = (e) => {
+  let inputText = e.target.value;
+  if (inputText === '') {
+    window.location.reload()
+  }
+  const filtered = rows.filter(recipe =>
+    recipe.name.toLowerCase().includes(inputText.toLowerCase())
+  );
+  setRows(filtered);
+};
+
 const addHandler = () => {
   // let editItem = rows.filter(item => item.id === id)
   // setEditsave(editItem[0])
@@ -97,9 +108,11 @@ const editHandler = (id) => {
 }
 
 const deleteHandler = (id) => {
-  // let editItem = rows.filter(item => item.id === id)
-  // setEditsave(editItem[0])
   console.log("delete _id: ", id)
+  let newObj = rows.filter(item => item.id !== id)
+  setRows(newObj)
+  localStorage.setItem('recipeData', JSON.stringify(newObj));
+  window.location.reload()
 }
     
 const saveHandler = (updatedData) => {
@@ -108,7 +121,7 @@ let newObj = rows.splice(updatedData.id -1, 1, updatedData)
 setRows(newObj)
 localStorage.setItem('recipeData', JSON.stringify(rows));
 console.log("rows - new - ", rows)
- window.location.reload()
+window.location.reload()
  }
 
 if(details){
@@ -129,8 +142,13 @@ if(details){
 } else {
   return (
     <div>
-      <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} &nbsp; &nbsp; &nbsp; <Button type='button'  className="btn btn-success" onClick={() => addHandler()}>Add New Recipe</Button></h2>
-      
+      <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="search-container" style={{  marginTop: '10px', marginLeft: '648px', marginRight: '15px',display: 'flex', alignItems: 'center' }}>
+        <input type="text" placeholder="Search for recipes by name ..." className="form-control" style={{ width: '400px' }}  onChange={(e) => searchHandler(e)} />
+      </div> 
+      <Button type='button' className="btn btn-success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>Add New Recipe</Button>
+    </div>
     <Table className="table table-striped">
       <thead>
         <tr>
