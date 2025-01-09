@@ -5,8 +5,10 @@ import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css'; // Import css
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import DetailsComp from './DetailsComp'
-import EditSaveComp from './EditSaveComp'
+import DetailsComp from './components/DetailsComp'
+import EditSaveComp from './components/EditSaveComp'
+import SearchBar from './components/SearchBar'
+import RecipeModal from './components/RecipeModal';
 
 function App() {
   const itemsPerPage = 10; // Number of items per page
@@ -175,39 +177,13 @@ if(details){
   return (
     <div >
       <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
-
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div className="search-container" style={{  marginTop: '10px', marginLeft: '648px', marginRight: '15px',display: 'flex', alignItems: 'center' }}>
-          <input 
-          type="text" 
-          placeholder="Search for recipes by name ..." 
-          className="form-control" style={{ width: '400px' }}  
-          onChange={(e) => searchHandler(e)} 
-          />
-        </div>  
-        <div>
+          <SearchBar searchHandler={searchHandler} />
           <Button variant="success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>
             Add New Recipe
           </Button>
-
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              todos
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleClose}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
       </div>
+      <RecipeModal show = {show} handleClose ={handleClose} />
       <Table className="table table-striped" style={{ width: '100%' }}>
       <thead>
         <tr>
@@ -271,8 +247,8 @@ if(details){
             <td><Button type='button' id="morebtn" data-tooltip-id="moreTooltip" variant="outline-secondary" onClick={() => detailHandler(ele.id)}>More...</Button>
                 <Tooltip id="moreTooltip" content = "extra information" place="bottom" effect="solid" />
             </td>
-            <td><Button type='button' className="btn btn-info"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
-            <td><Button type='button' className="btn btn-warning"  onClick={() => deleteHandler(ele.id) }>Delete</Button></td>
+            <td><Button type='button' variant="outline-primary"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
+            <td><Button type='button' variant="outline-danger"  onClick={() => deleteHandler(ele.id) }>Delete</Button></td>
           </tr>)
         }
       </tbody>
