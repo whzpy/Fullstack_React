@@ -8,6 +8,7 @@ import EditSaveComp from './components/EditSaveComp'
 import SearchBar from './components/SearchBar'
 import RecipeModal from './components/RecipeModal';
 import RecipeTable from './components/RecipeTable';
+import NavBarComp from './components/NavBarComp';
 
 function App() {
   const [rows, setRows] = useState([])
@@ -145,13 +146,14 @@ function App() {
   } else {
     return (
       <div >
+        <NavBarComp />
         <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
         <div style={{ display: 'flex', alignItems: 'center' }}>
             <SearchBar searchHandler={searchHandler} />
             <Button variant="success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>
               Add New Recipe
             </Button>
-        </div>
+        </div> 
         <RecipeModal show = {show} handleClose ={handleClose} />
         <RecipeTable
           rows={rows}
