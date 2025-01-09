@@ -9,10 +9,9 @@ import DetailsComp from './components/DetailsComp'
 import EditSaveComp from './components/EditSaveComp'
 import SearchBar from './components/SearchBar'
 import RecipeModal from './components/RecipeModal';
+import RecipeTable from './components/RecipeTable';
 
 function App() {
-  const itemsPerPage = 10; // Number of items per page
-  const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); // for sorting
 
   const [rows, setRows] = useState([])
@@ -32,38 +31,10 @@ function App() {
     }
   }, [])
 
-  // Calculate total pages
-  const totalPages = Math.ceil(rows.length / itemsPerPage);
-
-  // Get current page items
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = rows.slice(indexOfFirstItem, indexOfLastItem);
-
   // Modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  // Handle page change
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  // Render pagination
-  const renderPagination = () => {
-    let pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(
-        <li key={i} className={`page-item ${currentPage === i ? "active" : ""}`}>
-          <button className="page-link" onClick={() => handlePageChange(i)}>
-            {i}
-          </button>
-        </li>
-      );
-    }
-    return pages;
-  };
 
   // Function to handle sorting
   const handleSort = (key) => {
@@ -184,80 +155,15 @@ if(details){
           </Button>
       </div>
       <RecipeModal show = {show} handleClose ={handleClose} />
-      <Table className="table table-striped" style={{ width: '100%' }}>
-      <thead>
-        <tr>
-          <th>
-            <Button variant="link" onClick={() => handleSort('id')}>
-              ID {sortConfig.key === 'id' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th>
-            <Button variant="link" onClick={() => handleSort('name')}>
-              Name {sortConfig.key === 'name' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th >
-            <Button variant="link" onClick={() => handleSort('prepTimeMinutes')}>
-              prepTimeMinutes {sortConfig.key === 'prepTimeMinutes' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th>
-            <Button variant="link" onClick={() => handleSort('cookTimeMinutes')}>
-              cookTimeMinutes {sortConfig.key === 'cookTimeMinutes' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th>
-            <Button variant="link" onClick={() => handleSort('servings')}>
-              Servings {sortConfig.key === 'servings' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th>
-            <Button variant="link" onClick={() => handleSort('difficulty')}>
-              Difficulty {sortConfig.key === 'difficulty' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th>
-            <Button variant="link" onClick={() => handleSort('cuisine')}>
-              Cuisine {sortConfig.key === 'cuisine' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th>
-            <Button variant="link" onClick={() => handleSort('rating')}>
-              Rating {sortConfig.key === 'rating' ? (sortConfig.direction === 'asc' ? '↑' : '↓') : ''}
-            </Button>
-          </th>
-          <th> Details</th>
-          <th> Edit</th>
-          <th> Delete</th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        {currentItems.map(ele =>
-          <tr key = {ele.id} >
-            <td>{ele.id}</td>
-            <td>{ele.name}</td>
-            <td>{ele.prepTimeMinutes}</td>
-            <td>{ele.cookTimeMinutes}</td>
-            <td>{ele.servings}</td>
-            <td>{ele.difficulty}</td>
-            <td>{ele.cuisine}</td>
-            <td>{ele.rating}</td>
-            <td><Button type='button' id="morebtn" data-tooltip-id="moreTooltip" variant="outline-secondary" onClick={() => detailHandler(ele.id)}>More...</Button>
-                <Tooltip id="moreTooltip" content = "extra information" place="bottom" effect="solid" />
-            </td>
-            <td><Button type='button' variant="outline-primary"  onClick={() => editHandler(ele.id) }>Edit</Button></td>
-            <td><Button type='button' variant="outline-danger"  onClick={() => deleteHandler(ele.id) }>Delete</Button></td>
-          </tr>)
-        }
-      </tbody>
-      </Table>
-      <nav>
-        <ul className="pagination justify-content-center">
-          {renderPagination()}
-        </ul>
-      </nav>
+      <RecipeTable
+        rows={rows}
+        handleSort={handleSort}
+        sortConfig={sortConfig}
+        detailHandler={detailHandler}
+        editHandler={editHandler}
+        deleteHandler={deleteHandler}
+        itemsPerPage={10}
+       />
     </div>
   )
 }
