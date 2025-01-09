@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 
 const RecipeTable = ({ rows, handleSort, sortConfig, detailHandler, editHandler, deleteHandler, itemsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);
-    // Calculate total pages
+  // Calculate total pages
   const totalPages = Math.ceil(rows.length / itemsPerPage);
 
   // Get current page items
@@ -12,13 +12,13 @@ const RecipeTable = ({ rows, handleSort, sortConfig, detailHandler, editHandler,
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = rows.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Handle page change
+  // Handle page change
   const handlePageChange = (pageNumber) => {
       setCurrentPage(pageNumber);
   };
 
   // Render pagination
-const renderPagination = () => {
+  const renderPagination = () => {
     let pages = [];
     for (let i = 1; i <= totalPages; i++) {
       pages.push(
@@ -115,7 +115,7 @@ const renderPagination = () => {
             <td>{row.difficulty}</td>
             <td>{row.cuisine}</td>
             <td>{row.rating}</td>
-            <td><Button type='button' id="morebtn" data-tooltip-id="moreTooltip" variant="outline-secondary" onClick={() => detailHandler(row.id)}>More...</Button>
+            <td><Button type='button' data-tooltip-id="moreTooltip" variant="outline-secondary" onClick={() => detailHandler(row.id)}>More...</Button>
                 <Tooltip id="moreTooltip" content = "extra information" place="bottom" effect="solid" />
             </td>
             <td><Button type='button' variant="outline-primary"  onClick={() => editHandler(row.id) }>Edit</Button></td>

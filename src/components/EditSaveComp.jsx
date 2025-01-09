@@ -14,7 +14,6 @@ const EditSaveComp = ({editdata, saveHandler }) => {
     ? editdata.tags.join(", ")
     : "No tags available";
 
-
     const [name, setName] = useState(editdata.name)
     const [ingredients, setIngredients] = useState(formattedIngredients)
     const [instructions, setInstructions] = useState(formattedInstructions)
@@ -50,11 +49,10 @@ const EditSaveComp = ({editdata, saveHandler }) => {
         "mealType": mealType,
     }
 
-
     return (
       <div className="edit-save-aligned">
         <div>
-         <h2 className="heading">Id# {editdata.id}: All the fields are editable with `Save` and `Cancel` buttons at the bottom </h2>
+          <h2 className="heading">Id# {editdata.id}: All the fields are editable with `Save` and `Cancel` buttons at the bottom </h2>
         </div>
         <br></br>
         <form>
@@ -138,11 +136,11 @@ const EditSaveComp = ({editdata, saveHandler }) => {
         </form>
         <br></br>
         <div className="container d-flex justify-content-center gap-3" >
-        <button type='submit' className="btn btn-primary gap-3"  onClick= { () => saveHandler(updatedData)} >Save</button>
-        <button type='button' className="btn btn-warning gap-3"  onClick={() => window.location.reload()}>Cancel</button>
+            <button type='submit' className="btn btn-primary gap-3"  onClick= { () => saveHandler(updatedData)} >Save</button>
+            <button type='button' className="btn btn-warning gap-3"  onClick={() => window.location.reload()}>Cancel</button>
         </div>
       </div>
-      );
+    );
 }
 
 export default EditSaveComp;
