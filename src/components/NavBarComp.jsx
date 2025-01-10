@@ -4,7 +4,7 @@ import { Tooltip } from 'react-tooltip';
 
 const NavBarComp = () => {
     return (
-        <Navbar  expand="lg" style={{ marginTop: '-40px' }}>
+        <Navbar  expand="lg" style={{ marginLeft: '-10px', marginTop: '-30px' }}>
             <Container>
             <Navbar.Brand href="#home">React App</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

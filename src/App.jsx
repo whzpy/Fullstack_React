@@ -9,12 +9,14 @@ import SearchBar from './components/SearchBar'
 import RecipeModal from './components/RecipeModal';
 import RecipeTable from './components/RecipeTable';
 import NavBarComp from './components/NavBarComp';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [rows, setRows] = useState([])
   const [details, setDetails] = useState(null)
   const [editsave, setEditsave] = useState(null)
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); 
+  const [addNewRecipe, setAddNewRecipe] = useState(null)
 
   // Fetch data from API
   useEffect(() => {
@@ -77,31 +79,16 @@ function App() {
 
   // Add new recipe
   const addHandler = () => {
-    console.log("Add a new recipe ")
     handleShow()
-    // const newRecipe = {
-    //   id: rows.length + 1,
-    //   name: 'New Recipe',
-    //   ingredients: [],
-    //   instructions: [],
-    //   prepTimeMinutes,
-    //   cookTimeMinutes,
-    //   servings,
-    //   difficulty,
-    //   cuisine,
-    //   caloriesPerServing,
-    //   tags: [],
-    //   userId,
-    //   rating,
-    //   image,
-    //   mealType: '',
-    //   reviewCount: 0
-    // };
-    // const newRows = [...rows, newRecipe];
-    // setRows(newRows);
-    // localStorage.setItem('recipeData', JSON.stringify(newRows));
-    // window.location.reload();
   };
+  const addNewRecipeHandler = (newRecipe) => {
+    newRecipe.id = uuidv4()
+    // console.log("newRecipe: ", newRecipe)
+    setAddNewRecipe(newRecipe)
+    let newObj = [...rows, newRecipe]
+    setRows(newObj)
+    localStorage.setItem('recipeData', JSON.stringify(newObj));
+  }
 
   // Edit and Save
   const editHandler = (id) => {
@@ -111,7 +98,7 @@ function App() {
 
   // Delete
   const deleteHandler = (id) => {
-    console.log("delete _id: ", id)
+    // console.log("delete _id: ", id)
     let newObj = rows.filter(item => item.id !== id)
     setRows(newObj)
     localStorage.setItem('recipeData', JSON.stringify(newObj));
@@ -120,11 +107,10 @@ function App() {
       
   // Save
   const saveHandler = (updatedData) => {
-  console.log("updatedData: ", updatedData);
+  // console.log("updatedData: ", updatedData);
   let newObj = rows.splice(updatedData.id -1, 1, updatedData)
   setRows(newObj)
   localStorage.setItem('recipeData', JSON.stringify(rows));
-  console.log("rows - new - ", rows)
   window.location.reload()
   }
 
@@ -154,7 +140,7 @@ function App() {
               Add New Recipe
             </Button>
         </div> 
-        <RecipeModal show = {show} handleClose ={handleClose} />
+        <RecipeModal show = {show} handleClose = {handleClose} addNewRecipeHandler = {addNewRecipeHandler} />
         <RecipeTable
           rows={rows}
           handleSort={handleSort}
