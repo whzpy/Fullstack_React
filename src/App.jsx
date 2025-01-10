@@ -67,18 +67,26 @@ function App() {
 
   // Search
   const searchHandler = (e) => {
-    let inputText = e.target.value;
+    let inputText = e.target.value.toLowerCase();
     if (inputText === '') {
       window.location.reload()
     }
     const filtered = rows.filter(recipe =>
-      recipe.name.toLowerCase().includes(inputText.toLowerCase())
+      recipe.name.toLowerCase().includes(inputText) ||
+      recipe.prepTimeMinutes.toString().includes(inputText) ||
+      recipe.cookTimeMinutes.toString().includes(inputText) ||
+      recipe.servings.toString().includes(inputText) ||
+      recipe.difficulty.toLowerCase().includes(inputText) ||
+      recipe.cuisine.toLowerCase().includes(inputText) ||
+      recipe.rating.toString().includes(inputText) ||
+      recipe.id.toString().includes(inputText)
     );
     setRows(filtered);
   };
 
   // Add new recipe
   const addHandler = () => {
+    console.log("rows - ", rows)
     handleShow()
   };
   const addNewRecipeHandler = (newRecipe) => {
