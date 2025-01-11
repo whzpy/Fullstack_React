@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -9,6 +10,11 @@ import SearchBar from './components/SearchBar'
 import RecipeModal from './components/RecipeModal';
 import RecipeTable from './components/RecipeTable';
 import NavBarComp from './components/NavBarComp';
+import Home from './components/Home';
+import About from './components/About';
+import News from './components/News';
+import Contact from './components/Contact';
+import Login from './components/Login';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
@@ -16,7 +22,7 @@ function App() {
   const [details, setDetails] = useState(null)
   const [editsave, setEditsave] = useState(null)
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' }); 
-  const [addNewRecipe, setAddNewRecipe] = useState(null)
+  const itemsPerPage = 10; // row number per page
 
   // Fetch data from API
   useEffect(() => {
@@ -86,7 +92,6 @@ function App() {
 
   // Add new recipe
   const addHandler = () => {
-    console.log("rows - ", rows)
     handleShow()
   };
   const addNewRecipeHandler = (newRecipe) => {
@@ -139,25 +144,37 @@ function App() {
     />)
   } else {
     return (
-      <div >
+      <div>
         <NavBarComp />
-        <h2>Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <SearchBar searchHandler={searchHandler} />
-            <Button variant="success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>
-              Add New Recipe
-            </Button>
-        </div> 
-        <RecipeModal show = {show} handleClose = {handleClose} addNewRecipeHandler = {addNewRecipeHandler} />
-        <RecipeTable
-          rows={rows}
-          handleSort={handleSort}
-          sortConfig={sortConfig}
-          detailHandler={detailHandler}
-          editHandler={editHandler}
-          deleteHandler={deleteHandler}
-          itemsPerPage={10}
-        />
+        <Routes>
+          <Route 
+            path="/" 
+            element={
+              <div style={{ marginTop: '10px' }}>
+                <h2 style={{ marginBottom: '5px' }} >Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <SearchBar searchHandler={searchHandler} />
+                  <Button variant="success" style={{ marginTop: '10px' }} onClick={() => addHandler()}>
+                    Add New Recipe
+                  </Button>
+                </div> 
+                <RecipeModal show = {show} handleClose = {handleClose} addNewRecipeHandler = {addNewRecipeHandler} />
+                <RecipeTable
+                  rows={rows}
+                  handleSort={handleSort}
+                  sortConfig={sortConfig}
+                  detailHandler={detailHandler}
+                  editHandler={editHandler}
+                  deleteHandler={deleteHandler}
+                  itemsPerPage={itemsPerPage}
+                />
+              </div>
+            } />
+          <Route path="/home" exact element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
       </div>
     )
   }
