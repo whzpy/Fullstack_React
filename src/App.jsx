@@ -14,7 +14,7 @@ import Home from './components/Home';
 import About from './components/About';
 import News from './components/News';
 import Contact from './components/Contact';
-import Login from './components/Login';
+import LoginPage from './components/Login';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
@@ -127,6 +127,10 @@ function App() {
   window.location.reload()
   }
 
+  const loginDataHandler = (loginData) => { 
+    console.log("loginData: ", loginData)
+   }
+
   if(details){
     return (
     <DetailsComp 
@@ -174,7 +178,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginPage loginDataHandler = {loginDataHandler} />} />
         </Routes>
       </div>
     )
