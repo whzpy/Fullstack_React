@@ -1,7 +1,7 @@
 {
   "name": "hengzhiapp",
   "version": "0.0.0",
-  "homepage": "https://whzpy.github.io/HengzhiApp",
+  "homepage": "https://whzpy.github.io/HengzhiReactApp",
   "type": "module",
   "scripts": {
     "dev": "vite",
