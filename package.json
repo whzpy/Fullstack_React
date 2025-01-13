@@ -1,7 +1,7 @@
 {
-  "name": "etech",
+  "name": "hengzhiapp",
   "version": "0.0.0",
-  "homepage": "https://whzpy.github.io/eTech-test",
+  "homepage": "https://whzpy.github.io/hengzhiapp",
   "type": "module",
   "scripts": {
     "dev": "vite",
