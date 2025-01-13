@@ -58,7 +58,7 @@ function App() {
     setRows(sortedData);
   };
 
-  // Details - extra information
+  // Details - extra info
   const detailHandler = (id) =>{
     let detailsItem = rows.filter(item => item.id === id)
     let extraDetail = {
