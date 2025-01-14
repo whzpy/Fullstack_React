@@ -28,6 +28,7 @@ const LoginPage = ({loginDataHandler}) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     loginDataHandler({email, password});
+    alert("Go to `About` page to see your login data");
   }
 
   return (
