@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const EditSaveComp = ({editdata, saveHandler }) => { 
+const Edit = ({editdata, saveHandler }) => { 
 
     const formattedIngredients = Array.isArray(editdata.ingredients)
     ? editdata.ingredients.join(", ")
@@ -143,4 +143,4 @@ const EditSaveComp = ({editdata, saveHandler }) => {
     );
 }
 
-export default EditSaveComp;
+export default Edit;

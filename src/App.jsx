@@ -4,12 +4,12 @@ import { Button } from 'react-bootstrap';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-tooltip/dist/react-tooltip.css';
-import DetailsComp from './components/DetailsComp'
-import EditSaveComp from './components/EditSaveComp'
+import ExtraInfo from './components/ExtraInfo'
+import Edit from './components/Edit'
 import SearchBar from './components/SearchBar'
 import RecipeModal from './components/RecipeModal';
 import RecipeTable from './components/RecipeTable';
-import NavBarComp from './components/NavBarComp';
+import NavBar from './components/NavBar';
 import Home from './components/Home';
 import About from './components/About';
 import News from './components/News';
@@ -97,7 +97,6 @@ function App() {
   const addNewRecipeHandler = (newRecipe) => {
     newRecipe.id = uuidv4()
     // console.log("newRecipe: ", newRecipe)
-    setAddNewRecipe(newRecipe)
     let newObj = [...rows, newRecipe]
     setRows(newObj)
     localStorage.setItem('recipeData', JSON.stringify(newObj));
@@ -134,7 +133,7 @@ function App() {
 
   if(details){
     return (
-    <DetailsComp 
+    <ExtraInfo 
       ingredients =  {details.ingredients}
       instructions =  {details. instructions}
       tags =  {details.tags}
@@ -143,14 +142,14 @@ function App() {
     />)
   } else if(editsave){
     return (
-    <EditSaveComp 
+    <Edit 
       editdata = {editsave}
       saveHandler = {saveHandler}
     />)
   } else {
     return (
       <div>
-        <NavBarComp />
+        <NavBar />
         <Routes>
           <Route 
             path="/" 

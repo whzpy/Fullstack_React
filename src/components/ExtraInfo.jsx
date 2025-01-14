@@ -1,6 +1,6 @@
 import React from "react";
 
-const DetailsComp = (props) => {
+const ExtraInfo = (props) => {
     
   const formattedIngredients = Array.isArray(props.ingredients)
     ? props.ingredients.join(", ")
@@ -46,4 +46,4 @@ const DetailsComp = (props) => {
   );
 }
    
-export default DetailsComp
+export default ExtraInfo

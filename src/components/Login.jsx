@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const LoginPage = ({loginDataHandler}) => {
+const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [requirements, setRequirements] = useState({
@@ -27,7 +27,7 @@ const LoginPage = ({loginDataHandler}) => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    loginDataHandler({email, password});
+    props.loginDataHandler({email, password});
     alert("Go to `About` page to see your login data");
   }
 

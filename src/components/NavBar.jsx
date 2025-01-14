@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import 'react-tooltip/dist/react-tooltip.css';
 import reactLogo from '../assets/react.svg';
 
-const NavBarComp = () => {
+const NavBar = () => {
     return (
         <Navbar expand="lg" className="p-3 bg-light fixed-top" style={{ height: '50px' }}>
             <Container style={{ display: 'flex', justifyContent: 'space-between'}}>
@@ -30,4 +30,4 @@ const NavBarComp = () => {
     );
 };
 
-export default NavBarComp;
+export default NavBar;
