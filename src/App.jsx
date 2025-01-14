@@ -155,7 +155,7 @@ function App() {
           <Route 
             path="/" 
             element={
-              <div style={{ marginTop: '10px' }}>
+              <div style={{ marginTop: '15px' }}>
                 <h2 style={{ marginBottom: '5px' }} >Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <SearchBar searchHandler={searchHandler} />

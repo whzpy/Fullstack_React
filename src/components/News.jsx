@@ -4,8 +4,9 @@ import JWTImage from '../assets/img_JWT.png';
 
 
 const News = () => {
+
   return (
-  <div style = {{marginTop: '-50px', width: '100%'}}>
+  <div style = {{marginTop: '-30px', width: '100%', overflowY: 'auto'}}>
     <h3>News _ Tokens for User Validation</h3>
     <a rel="stylesheet" href="https://chat.deepseek.com/a/chat/s/f8a25b70-28a9-44f4-a6f6-cb40d5aff6e4" target="_blank">10+ Kinds of Tokens by Deepseek </a> 
     <hr></hr>
