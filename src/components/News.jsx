@@ -20,7 +20,7 @@ const News = () => {
       <a rel="JWT Decoder" href="https://jwt.io/" style={{ display: 'inline', marginLeft: '200px' }} target="_blank"> JWT Decoder </a>
     </div>
     <br></br>
-    <h5 style={{ textAlign: 'left' }}>Why can both Session Token and JWT be stored in Cookies?</h5>
+    <h5 style={{ textAlign: 'left' }}>For Session-Token(stateful) and JWT(stateless), both like to store in Cookies, Why?</h5>
     <ol style={{ textAlign: 'left' }}>
       <li><strong>Automatic Handling:</strong> Cookies are automatically sent with every request, making it easy to maintain the session without manually attaching to each request.</li>
       <li><strong>Security:</strong> Cookies can be configured with flags like HttpOnly, Secure, and SameSite to enhance security. For example: "HttpOnly" __ prevents client-side scripts from accessing the cookie. "Secure" __ ensures the cookie is only sent over HTTPS. "SameSite" __ helps prevent CSRF attacks.</li>

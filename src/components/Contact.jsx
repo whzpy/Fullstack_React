@@ -36,7 +36,7 @@ const Contact = () => {
           <input type="text" id = "phone" name="phone"  pattern="\d*" value={phone}
             onChange={(e)=> { if (!/^\d*$/.test(e.target.value)){alert("Wrong phone number")};
               setPhone(e.target.value)}} style={{ flex: 1, marginRight: '30px' }}/>
-          <Button type="submit" onClick={addHandler}> Add a new record</Button>
+          <Button type="submit" onClick={addHandler}> Add a new contact info</Button>
         </div>      
       </form>
       <hr></hr>
