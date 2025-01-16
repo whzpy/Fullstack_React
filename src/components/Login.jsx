@@ -28,7 +28,7 @@ const LoginPage = (props) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     props.loginDataHandler({email, password});
-    alert("Go to `About` page to see your login data");
+    alert("Go to `Home` page to see your login data");
   }
 
   return (
