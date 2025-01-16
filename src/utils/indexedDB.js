@@ -3,29 +3,29 @@ import { openDB } from 'idb';
 
 // Initialize the IndexedDB
 export const initDB = async () => {
-  return openDB('RecipesDB', 1, {
+  return openDB('FruitsDB', 1, {
     upgrade(db) {
-      if (!db.objectStoreNames.contains('recipes')) {
-        db.createObjectStore('recipes', { keyPath: 'id', autoIncrement: true });
+      if (!db.objectStoreNames.contains('Fruits')) {
+        db.createObjectStore('Fruits', { keyPath: 'id', autoIncrement: true });
       }
     },
   });
 };
 
-// Add a recipe to the database
-export const addRecipe = async (recipe) => {
+// Add a Fruit to the database
+export const addFruit = async (Fruit) => {
   const db = await initDB();
-  return db.add('recipes', recipe);
+  return db.add('Fruits', Fruit);
 };
 
-// Fetch all recipes from the database
-export const getRecipes = async () => {
+// Fetch all Fruits from the database
+export const getFruits = async () => {
   const db = await initDB();
-  return db.getAll('recipes');
+  return db.getAll('Fruits');
 };
 
-// Delete a recipe by ID
-export const deleteRecipe = async (id) => {
+// Delete a Fruit by ID
+export const deleteFruit = async (id) => {
   const db = await initDB();
-  return db.delete('recipes', id);
+  return db.delete('Fruits', id);
 };

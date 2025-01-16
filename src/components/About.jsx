@@ -1,80 +1,92 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Table } from 'react-bootstrap';
 import '../App.css'
-import { addRecipe, getRecipes, deleteRecipe } from '../utils/indexedDB';
+import { addFruit, getFruits, deleteFruit } from '../utils/indexedDB';
 
 function About() {
-  const [recipes, setRecipes] = useState([]);
-  const [recipeName, setRecipeName] = useState('');
-  const [recipePrice, setRecipePrice] = useState('');
+  const [fruits, setFruits] = useState([]);
+  const [fruitName, setFruitName] = useState('');
+  const [fruitPrice, setFruitPrice] = useState('');
 
-  // Fetch recipes from IndexedDB on component mount
+  // Fetch Fruits from IndexedDB on component mount
   useEffect(() => {
-    fetchRecipes();
+    fetchFruits();
   }, []);
 
-  const fetchRecipes = async () => {
-    const data = await getRecipes();
-    setRecipes(data);
+  const fetchFruits = async () => {
+    const data = await getFruits();
+    setFruits(data);
   };
 
-  const handleAddRecipe = async () => {
-    if (recipeName && recipePrice) {
-      await addRecipe({ name: recipeName, price: recipePrice });
-      setRecipeName('');
-      setRecipes('');
-      fetchRecipes();
+  const handleAddFruit = async () => {
+    if (fruitName && fruitPrice) {
+      await addFruit({ name: fruitName, price: fruitPrice });
+      setFruitName('');
+      setFruits('');
+      fetchFruits();
     }
   };
 
-  const handleDeleteRecipe = async (id) => {
-    await deleteRecipe(id);
-    fetchRecipes();
+  const handleEditFruit = async (id) => {
+    console.log("Edit Item Id: ", id)
+    // await deleteFruit(id);
+    // fetchFruits();
+  };
+  
+  const handleDeleteFruit = async (id) => {
+    await deleteFruit(id);
+    fetchFruits();
   };
 
   return (
     <div>
-      <h2 style={{ marginTop: '-250px' }}>Recipe Table __IndexedDB practice</h2>
+      <h3 style={{ marginTop: '-100px' }}> CRUD: Fruit Price List - Input Data Stored in `IndexedDB`</h3>
+      <p style={{ backgroundColor: '#E8E8E8',  marginTop: '5px', marginBottom: '20px', fontSize:'1.1rem'  }}> CRUD: Recipes /Recipe List - Data Fetched from API First, Then Stored in `Local stoage`</p>
       <div>
-        <label style={{ marginRight: '3px' }}>Recipe Name </label>
+        <label style={{ marginRight: '3px',padding: '4px' }}>Fruit </label>
         <input
           type="text"
-          value={recipeName}
-          onChange={(e) => setRecipeName(e.target.value)}
-          placeholder="Enter recipe name"
+          value={fruitName}
+          onChange={(e) => setFruitName(e.target.value)}
+          placeholder="Enter name of fruit"
           style={{ marginRight: '20px' }}
         />
-        <label style={{ marginRight: '3px' }}>Recipe Price</label>
+        <label style={{ marginRight: '3px', padding: '4px' }}>Price</label>
         <input
           type="number"
-          value={recipePrice}
-          onChange={(e) => setRecipePrice(e.target.value)}
-          placeholder="Enter recipe price"
+          value={fruitPrice}
+          onChange={(e) => setFruitPrice(e.target.value)}
+          placeholder="Enter price per unit"
           style={{ marginRight: '20px' }}
         />
-        <button onClick={handleAddRecipe} style={{ backgroundColor:"green"}}>Add Recipe</button>
+        <Button onClick={handleAddFruit} style={{ backgroundColor:"green"}}>Add Fruit</Button>
       </div>
-      <table border="1" style={{ marginTop: '20px', width: '95%' }}>
+      <Table border="1" style={{ marginTop: '20px', width: '95%' }}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th>Id</th>
+            <th>Fruit</th>
+            <th>Price per Unit</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody >
-          {Array.isArray(recipes) && recipes.map((recipe) => (
-            <tr key={recipe.id}>
-              <td>{recipe.id}</td>
-              <td>{recipe.name}</td>
-              <td>{recipe.price}</td>
+          {Array.isArray(fruits) && fruits.map((fruit) => (
+            <tr key={fruit.id}>
+              <td>{fruit.id}</td>
+              <td>{fruit.name}</td>
+              <td>{fruit.price}</td>
               <td>
-                <button onClick={() => handleDeleteRecipe(recipe.id)} style={{ backgroundColor:"orange"}}>Delete</button>
+                <Button onClick={() => handleEditFruit(fruit.id)} style={{ backgroundColor:"#4D4DFF"}}>Edit</Button>
+              </td>
+              <td>
+                <Button onClick={() => handleDeleteFruit(fruit.id)} style={{ backgroundColor:"orange"}}>Delete</Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }
