@@ -67,7 +67,6 @@ function About() {
             <th>Id</th>
             <th>Fruit</th>
             <th>Price per Unit</th>
-            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -77,9 +76,6 @@ function About() {
               <td>{fruit.id}</td>
               <td>{fruit.name}</td>
               <td>{fruit.price}</td>
-              <td>
-                <Button onClick={() => handleEditFruit(fruit.id)} style={{ backgroundColor:"#4D4DFF"}}>Edit</Button>
-              </td>
               <td>
                 <Button onClick={() => handleDeleteFruit(fruit.id)} style={{ backgroundColor:"orange"}}>Delete</Button>
               </td>

@@ -18,6 +18,12 @@ export const addFruit = async (Fruit) => {
   return db.add('Fruits', Fruit);
 };
 
+// Edit a Fruit by ID
+export const editFruit = async (Fruit) => {
+  const db = await initDB();
+  return db.put('Fruits', Fruit);
+};
+
 // Fetch all Fruits from the database
 export const getFruits = async () => {
   const db = await initDB();
