@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import '../App.css'
-import { addFruit, getFruits, deleteFruit } from '../utils/indexedDB';
+import { addFruit, getFruits, editFruit, deleteFruit } from '../utils/indexedDB';
+import AboutModal from './AboutModal';
 
 function About() {
   const [fruits, setFruits] = useState([]);
   const [fruitName, setFruitName] = useState('');
   const [fruitPrice, setFruitPrice] = useState('');
+  const [selected, setSelected] = useState('');
 
   // Fetch Fruits from IndexedDB on component mount
   useEffect(() => {
     fetchFruits();
   }, []);
+
+  // Modal
+  const [show, setShow] = useState(false);
+  const modalClose = () => setShow(false);
+  const modalShow = () => setShow(true);
 
   const fetchFruits = async () => {
     const data = await getFruits();
@@ -22,17 +29,25 @@ function About() {
     if (fruitName && fruitPrice) {
       await addFruit({ name: fruitName, price: fruitPrice });
       setFruitName('');
-      setFruits('');
+      setFruitPrice('');
       fetchFruits();
     }
   };
 
-  const handleEditFruit = async (id) => {
-    console.log("Edit Item Id: ", id)
-    // await deleteFruit(id);
-    // fetchFruits();
+  const handleUpdateClick = (id) => {
+    let selectedFruit = fruits.filter((fruit) => fruit.id === id)
+    // console.log("Update Click: ", selectedFruit[0])
+    setSelected(selectedFruit[0])
+    modalShow();
   };
-  
+
+  const saveUpdatedData = (updatedItem) => {
+    console.log("Updated item to save: ", updatedItem);
+    editFruit(updatedItem);
+    fetchFruits();
+    setSelected('')
+  };
+
   const handleDeleteFruit = async (id) => {
     await deleteFruit(id);
     fetchFruits();
@@ -61,12 +76,14 @@ function About() {
         />
         <Button onClick={handleAddFruit} style={{ backgroundColor:"green"}}>Add Fruit</Button>
       </div>
+      { selected && <AboutModal show = {show} modalClose = {modalClose} saveUpdatedData = {saveUpdatedData} selected = {selected} /> }
       <Table border="1" style={{ marginTop: '20px', width: '95%' }}>
         <thead>
           <tr>
             <th>Id</th>
             <th>Fruit</th>
             <th>Price per Unit</th>
+            <th>Update</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -76,6 +93,9 @@ function About() {
               <td>{fruit.id}</td>
               <td>{fruit.name}</td>
               <td>{fruit.price}</td>
+              <td>
+                <Button onClick={() => handleUpdateClick(fruit.id)} style={{ backgroundColor:"#7070FF"}}>Update</Button>
+              </td>
               <td>
                 <Button onClick={() => handleDeleteFruit(fruit.id)} style={{ backgroundColor:"orange"}}>Delete</Button>
               </td>

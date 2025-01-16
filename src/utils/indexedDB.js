@@ -18,10 +18,19 @@ export const addFruit = async (Fruit) => {
   return db.add('Fruits', Fruit);
 };
 
-// Edit a Fruit by ID
+// Edit a Fruit
 export const editFruit = async (Fruit) => {
+  if (!Fruit.id) {
+    throw new Error('Cannot update a Fruit without an "id".');
+  }
   const db = await initDB();
-  return db.put('Fruits', Fruit);
+  try {
+    await db.put('Fruits', Fruit); // Update the fruit by replacing the record with the same ID
+    console.log(`Fruit with ID ${Fruit.id} updated successfully.`);
+  } catch (error) {
+    console.error('Failed to update fruit:', error);
+    throw error;
+  }
 };
 
 // Fetch all Fruits from the database

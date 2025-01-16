@@ -1,7 +1,7 @@
 {
   "name": "hengzhiapp",
   "version": "0.0.0",
-  "homepage": "https://whzpy.github.io/HengzhiReactApp",
+  "homepage": "https://whzpy.github.io/Jackie2025React",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "idb": "^8.0.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.3.1",
