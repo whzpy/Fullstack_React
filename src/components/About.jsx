@@ -42,7 +42,7 @@ function About() {
   };
 
   const saveUpdatedData = (updatedItem) => {
-    console.log("Updated item to save: ", updatedItem);
+    // console.log("Updated item to save: ", updatedItem);
     editFruit(updatedItem);
     fetchFruits();
     setSelected('')

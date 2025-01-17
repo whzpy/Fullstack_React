@@ -27,7 +27,7 @@ const AboutModal = ({ show, modalClose, saveUpdatedData, selected }) => {
         name: name, 
         price: price
     };
-    console.log("updatedItem: ", updatedItem)
+    // console.log("updatedItem: ", updatedItem)
     saveUpdatedData(updatedItem);
     setName('')
     setPrice('')

@@ -26,7 +26,7 @@ export const editFruit = async (Fruit) => {
   const db = await initDB();
   try {
     await db.put('Fruits', Fruit); // Update the fruit by replacing the record with the same ID
-    console.log(`Fruit with ID ${Fruit.id} updated successfully.`);
+    // console.log(`Fruit with ID ${Fruit.id} updated successfully.`);
   } catch (error) {
     console.error('Failed to update fruit:', error);
     throw error;
