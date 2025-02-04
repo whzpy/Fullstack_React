@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const RegisterPage = (props) => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [requirements, setRequirements] = useState({
@@ -10,6 +11,10 @@ const RegisterPage = (props) => {
     miniLength: false,
   });
 
+  const handleUsernameChange = (e) => {
+    const input = e.target.value;
+    setUsername(input);
+  }
   const handleEmailChange = (e) => {
     const input = e.target.value;
     setEmail(input);
@@ -35,6 +40,17 @@ const RegisterPage = (props) => {
     <div style={styles.container}>
       <h2>Register</h2><br></br>
       <form style={styles.form} onSubmit={handleLoginSubmit}>
+        <div style={styles.inputGroup}>
+          <label>Username:</label>
+          <input 
+          type="text" 
+          value={username}
+          style={styles.input}
+          onChange={handleUsernameChange}
+          required 
+          autoComplete="username"
+          />
+        </div>
         <div style={styles.inputGroup}>
           <label>Email:</label>
           <input 
@@ -75,7 +91,7 @@ const RegisterPage = (props) => {
         style={styles.button} 
         disabled={!isPasswordValid(requirements)} 
         >
-          Login
+          Signup
         </button>    {/* BUTTON inside FORM must be `<form style={styles.form} onSubmit={handleLoginSubmit}>` */}
       </form>
         {/* <button 

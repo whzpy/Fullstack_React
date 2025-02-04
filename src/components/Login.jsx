@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const LoginPage = (props) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [requirements, setRequirements] = useState({
     letters: false,
@@ -10,9 +10,9 @@ const LoginPage = (props) => {
     miniLength: false,
   });
 
-  const handleEmailChange = (e) => {
+  const handleUsernameChange = (e) => {
     const input = e.target.value;
-    setEmail(input);
+    setUsername(input);
   }
   const handlePasswordChange = (e) => {
     const input = e.target.value;
@@ -27,7 +27,7 @@ const LoginPage = (props) => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    props.loginDataHandler({email, password});
+    props.loginDataHandler({username, password});
     alert("Go to `Workflow` webpage to see your login result");
   }
 
@@ -36,14 +36,14 @@ const LoginPage = (props) => {
       <h2>Login</h2> <br></br>
       <form style={styles.form} onSubmit={handleLoginSubmit}>
         <div style={styles.inputGroup}>
-          <label>Email:</label>
+          <label>Username:</label>
           <input 
-          type="email" 
-          value={email}
+          type="text" 
+          value={username}
           style={styles.input}
-          onChange={handleEmailChange}
+          onChange={handleUsernameChange}
           required 
-          autoComplete="email"
+          autoComplete="usernamee"
           />
         </div>
         <div style={styles.inputGroup}>
