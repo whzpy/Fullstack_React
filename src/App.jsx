@@ -10,10 +10,10 @@ import SearchBar from './components/SearchBar'
 import RecipeModal from './components/RecipeModal';
 import RecipeTable from './components/RecipeTable';
 import NavBar from './components/NavBar';
-import Home from './components/Home';
+import Workflow from './components/Workflow';
 import About from './components/About';
-import News from './components/News';
 import Contact from './components/Contact';
+import Register from './components/Register';
 import LoginPage from './components/Login';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -151,8 +151,9 @@ function App() {
       <div>
         <NavBar />
         <Routes>
+          <Route path="/" element={<Workflow />} />
           <Route 
-            path="/" 
+            path="/recipes" 
             element={
               <div style={{ marginTop: '15px' }}>
                 <h2 style={{ marginBottom: '5px' }} >Recipe List with Additional Information __ {new Date().toLocaleDateString()} </h2> 
@@ -174,10 +175,9 @@ function App() {
                 />
               </div>
             } />
-          <Route path="/home" exact element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register loginDataHandler = {loginDataHandler} />} />
           <Route path="/login" element={<LoginPage loginDataHandler = {loginDataHandler} />} />
         </Routes>
       </div>

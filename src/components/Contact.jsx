@@ -20,6 +20,8 @@ const Contact = () => {
 
   return (
     <div style = {{marginTop: '-100px', width: '100%'}}>
+      <h3 style={{ marginTop: '-100px' }}> Input new contact info, which will be displayed in the next table  </h3>
+      <br></br>
       <form style = {{ color:'blue', marginTop: '10px', marginBottom: '1px', width: '100%' }}>
         <div style = {{display: 'flex',justifyContent: 'space-between',  alignItems: "center",}}>
           <label style={{ flex: 1, marginRight: '5px', padding: '3px' }}> Fistname </label>
@@ -58,7 +60,7 @@ const Contact = () => {
           ))}
         </tbody>
       </Table>
-       <Button type="submit"  variant="success" onClick={() => console.log("New Contacts: ", rows)}> Save Contacts to Database</Button>
+       <Button type="submit"  variant="success" onClick={() => console.log("New Contacts: ", rows)}> Save contacts to the `contacts` table in the local PostgreSQL database</Button>
     </div>
   );
 }

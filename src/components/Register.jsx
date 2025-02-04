@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const LoginPage = (props) => {
+const RegisterPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [requirements, setRequirements] = useState({
@@ -28,12 +28,12 @@ const LoginPage = (props) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     props.loginDataHandler({email, password});
-    alert("Go to `Workflow` webpage to see your login result");
+    alert("Go to `Workflow` webpage to see your sign-up result");
   }
 
   return (
     <div style={styles.container}>
-      <h2>Login</h2> <br></br>
+      <h2>Register</h2><br></br>
       <form style={styles.form} onSubmit={handleLoginSubmit}>
         <div style={styles.inputGroup}>
           <label>Email:</label>
@@ -136,4 +136,4 @@ const styles = {
   },
 };
 
-export default LoginPage;
+export default RegisterPage;

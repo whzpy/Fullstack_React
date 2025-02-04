@@ -56,7 +56,7 @@ function About() {
   return (
     <div>
       <h3 style={{ marginTop: '-100px' }}> CRUD: Fruit Price List - Input Data Stored in `IndexedDB`</h3>
-      <p style={{ backgroundColor: '#E8E8E8',  marginTop: '5px', marginBottom: '20px', fontSize:'1.1rem'  }}> CRUD: Recipes /Recipe List - Data Fetched from API First, Then Stored in `Local stoage`</p>
+      <p style={{ backgroundColor: '#E8E8E8',  marginTop: '5px', marginBottom: '20px', fontSize:'1.1rem'  }}> CRUD: Recipes /Recipe List - Data Fetched from API First, Then Stored in `Local storage`</p> <br></br>
       <div>
         <label style={{ marginRight: '3px',padding: '4px' }}>Fruit </label>
         <input
