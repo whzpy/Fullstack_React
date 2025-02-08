@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const RegisterPage = (props) => {
+const SignupPage = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,16 +30,19 @@ const RegisterPage = (props) => {
     });
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleSignupSubmit = (e) => {
     e.preventDefault();
-    props.loginDataHandler({email, password});
-    alert("Go to `Workflow` webpage to see your sign-up result");
+    props.signupDataHandler({username, email, password});
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    alert("Sign-up success! Open Chrome DevTools to view your signup result (hashed_password)");
   }
 
   return (
     <div style={styles.container}>
-      <h2>Register</h2><br></br>
-      <form style={styles.form} onSubmit={handleLoginSubmit}>
+      <h2>Sign Up</h2><br></br>
+      <form style={styles.form} onSubmit={handleSignupSubmit}>
         <div style={styles.inputGroup}>
           <label>Username:</label>
           <input 
@@ -92,12 +95,12 @@ const RegisterPage = (props) => {
         disabled={!isPasswordValid(requirements)} 
         >
           Signup
-        </button>    {/* BUTTON inside FORM must be `<form style={styles.form} onSubmit={handleLoginSubmit}>` */}
+        </button>    {/* BUTTON inside FORM must be `<form style={styles.form} onSubmit={handleSignupSubmit}>` */}
       </form>
         {/* <button 
               type="submit" style={styles.button} 
               disabled={!isPasswordValid(requirements)} 
-              onClick={handleLoginSubmit}
+              onClick={handleSignupSubmit}
             > Login </button> */}
     </div>
   );
@@ -152,4 +155,4 @@ const styles = {
   },
 };
 
-export default RegisterPage;
+export default SignupPage;

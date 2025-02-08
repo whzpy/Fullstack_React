@@ -13,7 +13,7 @@ import NavBar from './components/NavBar';
 import Workflow from './components/Workflow';
 import About from './components/About';
 import Contact from './components/Contact';
-import Register from './components/Register';
+import SignupPage from './components/Signup';
 import LoginPage from './components/Login';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -126,9 +126,66 @@ function App() {
   window.location.reload()
   }
 
-   // Login Data
-  const loginDataHandler = (loginData) => { 
-    console.log("loginData: ", loginData)
+   // Signup - username, email, and password SAVE to FastAPI-database
+  const signupDataHandler = async (signupData) => { 
+    const url = "http://127.0.0.1:8000/auth/create-user"
+
+    let signupDataDB = {
+      "username": signupData.username,
+      "first_name": "string",
+      "last_name": "string",
+      "email": signupData.email,
+      "password": signupData.password,
+      "role": "user"
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(signupDataDB)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Signup data submitted successfully:", result);
+    } catch (error) {
+      console.error("Error posting data to db:", error);
+    }
+   }
+
+  // Login - to FastAPI-database for authentication and JWT token (response)
+  const loginDataHandler = async (loginData) => { 
+     const url = "http://127.0.0.1:8000/auth/login"
+     
+    let loginDataDB = {
+      "username": loginData.username,
+      "password": loginData.password
+    }
+    
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(loginDataDB)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Login data posted successfully:", result);
+    } catch (error) {
+      console.error("Error login posting data to db:", error);
+    }
    }
 
   if(details){
@@ -177,7 +234,7 @@ function App() {
             } />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/register" element={<Register loginDataHandler = {loginDataHandler} />} />
+          <Route path="/signup" element={<SignupPage signupDataHandler = {signupDataHandler} />} />
           <Route path="/login" element={<LoginPage loginDataHandler = {loginDataHandler} />} />
         </Routes>
       </div>

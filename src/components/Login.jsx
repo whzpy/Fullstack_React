@@ -28,6 +28,8 @@ const LoginPage = (props) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     props.loginDataHandler({username, password});
+    setUsername("");
+    setPassword("");
     alert("Go to `Workflow` webpage to see your login result");
   }
 
