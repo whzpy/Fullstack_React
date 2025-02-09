@@ -30,7 +30,7 @@ const LoginPage = (props) => {
     props.loginDataHandler({username, password});
     setUsername("");
     setPassword("");
-    alert("Go to `Workflow` webpage to see your login result");
+    alert("Login success! Open Chrome DevTools to view your login result (hashed password and JWT token) at the 'Console'. The access JWT token is also stored in the 'Cookies' section under the 'Application' tab while DevTools remains open during the session.");
   }
 
   return (

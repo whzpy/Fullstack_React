@@ -174,6 +174,7 @@ function App() {
         headers: {
           "Content-Type": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify(loginDataDB)
       });
 
@@ -182,7 +183,7 @@ function App() {
       }
 
       const result = await response.json();
-      console.log("Login data posted successfully:", result);
+      console.log("Login data submitted successfully:", result);
     } catch (error) {
       console.error("Error login posting data to db:", error);
     }
