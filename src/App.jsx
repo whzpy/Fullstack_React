@@ -127,9 +127,10 @@ function App() {
   }
 
    // Signup - username, email, and password SAVE to FastAPI-database
-  const signupDataHandler = async (signupData) => { 
-    const url = "http://127.0.0.1:8000/auth/create-user"
+  const fastApiUrl = import.meta.env.VITE_API_URL;
 
+  const signupDataHandler = async (signupData) => { 
+    const url = `${fastApiUrl}/auth/create-user`
     let signupDataDB = {
       "username": signupData.username,
       "first_name": "string",
@@ -161,8 +162,7 @@ function App() {
 
   // Login - to FastAPI-database for authentication and JWT token (response)
   const loginDataHandler = async (loginData) => { 
-     const url = "http://127.0.0.1:8000/auth/login"
-     
+    const url = `${fastApiUrl}/auth/login` 
     let loginDataDB = {
       "username": loginData.username,
       "password": loginData.password
